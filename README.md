@@ -22,7 +22,9 @@ The **Farmer to Consumer** project is a platform designed to connect farmers dir
 1. Clone the repository:
    ```bash
    git clone https://github.com/Abufirnas-Md/farmer-to-consumer.git
+   
 2.Open the HTML files in your browser to see the frontend.
+
 3.Compile and run the C code:
 gcc main.c -o main
 ./main
@@ -34,20 +36,20 @@ Farmers can add and manage their products.
 
 Orders are processed directly, without intermediaries.
 
-##Status
+Status:
 
 Currently at refining/advanced development stage
 
 Additional features, UI improvements, and backend enhancements planned
 
-##License
+License:
 
 This project is licensed under the MIT License - see the LICENSE
  file for details.
 
-##Contact
+Contact:
 
-For any queries or suggestions, contact Md Firnas.
+For any queries or suggestions, contact Md AbuFirnas.
 
 
 
