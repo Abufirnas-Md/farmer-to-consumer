@@ -1,0 +1,55 @@
+import java.util.Scanner;
+
+public class FarmerToConsumer {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Product list
+        String[] products = {"Apple", "Tomato", "Potato", "Carrot", "Banana"};
+        double[] prices = {3.5, 2.8, 1.5, 2.0, 1.8}; // Price per kg
+
+        System.out.println("=== Welcome to Farmer-to-Consumer Ordering System ===\n");
+
+        boolean ordering = true;
+        double totalPrice = 0;
+
+        while(ordering) {
+            // Display products
+            System.out.println("Available Products:");
+            for(int i = 0; i < products.length; i++) {
+                System.out.printf("%d. %s - $%.2f per kg%n", i+1, products[i], prices[i]);
+            }
+
+            // Ask user to select product
+            System.out.print("\nEnter product number to buy (0 to finish): ");
+            int choice = sc.nextInt();
+
+            if(choice == 0) {
+                ordering = false;
+                break;
+            } 
+            
+            if(choice < 1 || choice > products.length) {
+                System.out.println("Invalid choice! Try again.");
+                continue;
+            }
+
+            System.out.print("Enter quantity in kg: ");
+            double quantity = sc.nextDouble();
+
+            double price = prices[choice - 1] * quantity;
+            totalPrice += price;
+
+            System.out.printf("Added %.2f kg of %s to your order. Subtotal: $%.2f%n%n", 
+                              quantity, products[choice-1], price);
+        }
+
+        // Order summary
+        System.out.println("\n=== Order Summary ===");
+        System.out.printf("Total Price: $%.2f%n", totalPrice);
+        System.out.println("Thank you for ordering directly from farmers! Support local farming.");
+
+        sc.close();
+    }
+}
