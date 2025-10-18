@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kruza</title>
+  <style>
+    body {
+      font-family: Times New Roman, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header h2 {
+      color: #1e9b73;
+      margin: 0;
+      font-size: 20px;
+    }
+
+    header .icons {
+      display: flex;
+      gap: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Welcome Card */
+    .welcome-card {
+      background: #1e9b73;
+      color: white;
+      margin: 20px;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .welcome-card h3 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .welcome-card p {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    /* Menu Grid */
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px;
+    }
+
+    .menu button {
+      border: none;
+      padding: 25px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: bold;
+    }
+
+    .menu button:hover {
+      opacity: 0.9;
+    }
+
+    /* Each button with its own background */
+    .browse { background: #e6f9f0; color: #1e9b73; }
+    .orders { background: #eef0ff; color: #5a67d8; }
+    .wallet { background: #f4e6ff; color: #a855f7; }
+    .profile { background: #fff2e6; color: #f97316; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h2>Kruzaa</h2>
+    <div class="icons">
+      🛒 🔔
+    </div>
+  </header>
+
+  <!-- Welcome Card -->
+  <div class="welcome-card">
+    <h3>Welcome to Kruzaa</h3>
+    <p>Fresh produce directly from verified farmers</p>
+  </div>
+
+  <!-- Menu (2x2 grid with different bg colors) -->
+  <div class="menu">
+    <button class="browse">🔍 Browse Crops</button>
+    <button class="orders">📦 My Orders</button>
+    <button class="wallet">💳 Wallet</button>
+    <button class="profile">👤 Profile</button>
+  </div>
+
+</body>
+</html>
