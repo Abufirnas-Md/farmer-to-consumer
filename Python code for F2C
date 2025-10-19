@@ -1,0 +1,166 @@
+# Farmer to Consumer System - Python Console Program
+# Author: Md Firnas
+
+# Data storage (in-memory for demo)
+farmers = {}
+consumers = {}
+products = {}
+orders = []
+
+# ------------------- Farmer Functions -------------------
+def register_farmer():
+    print("\n--- Farmer Registration ---")
+    name = input("Enter farmer name: ").strip()
+    email = input("Enter email: ").strip()
+    if email in farmers:
+        print("Farmer already registered!")
+        return
+    farmers[email] = {"name": name, "products": []}
+    print(f"Farmer '{name}' registered successfully!")
+
+def add_product():
+    print("\n--- Add Product ---")
+    email = input("Enter your registered email: ").strip()
+    if email not in farmers:
+        print("Farmer not found. Please register first.")
+        return
+    product_name = input("Enter product name: ").strip()
+    try:
+        price = float(input("Enter price per kg: "))
+        quantity = float(input("Enter quantity available (kg): "))
+    except ValueError:
+        print("Invalid input. Price and quantity must be numbers.")
+        return
+    product_id = len(products) + 1
+    products[product_id] = {
+        "name": product_name,
+        "price": price,
+        "quantity": quantity,
+        "farmer_email": email
+    }
+    farmers[email]["products"].append(product_id)
+    print(f"Product '{product_name}' added successfully!")
+
+def view_farmer_products():
+    print("\n--- Your Products ---")
+    email = input("Enter your registered email: ").strip()
+    if email not in farmers:
+        print("Farmer not found.")
+        return
+    farmer_products = farmers[email]["products"]
+    if not farmer_products:
+        print("No products listed yet.")
+        return
+    for pid in farmer_products:
+        prod = products[pid]
+        print(f"ID: {pid} | {prod['name']} | Price: {prod['price']} per kg | Qty: {prod['quantity']} kg")
+
+# ------------------- Consumer Functions -------------------
+def register_consumer():
+    print("\n--- Consumer Registration ---")
+    name = input("Enter your name: ").strip()
+    email = input("Enter email: ").strip()
+    if email in consumers:
+        print("Consumer already registered!")
+        return
+    consumers[email] = {"name": name, "orders": []}
+    print(f"Consumer '{name}' registered successfully!")
+
+def browse_products():
+    print("\n--- Available Products ---")
+    if not products:
+        print("No products available.")
+        return
+    for pid, prod in products.items():
+        farmer_name = farmers[prod["farmer_email"]]["name"]
+        print(f"ID: {pid} | {prod['name']} | Price: {prod['price']} per kg | Qty: {prod['quantity']} kg | Farmer: {farmer_name}")
+
+def place_order():
+    print("\n--- Place Order ---")
+    email = input("Enter your registered email: ").strip()
+    if email not in consumers:
+        print("Consumer not found. Please register first.")
+        return
+    browse_products()
+    try:
+        pid = int(input("Enter product ID to order: "))
+        if pid not in products:
+            print("Invalid product ID.")
+            return
+        quantity = float(input("Enter quantity to buy (kg): "))
+        if quantity <= 0:
+            print("Quantity must be greater than zero.")
+            return
+    except ValueError:
+        print("Invalid input.")
+        return
+
+    product = products[pid]
+    if quantity > product["quantity"]:
+        print("Not enough stock available.")
+        return
+
+    # Deduct quantity and save order
+    product["quantity"] -= quantity
+    total_price = quantity * product["price"]
+    order = {
+        "consumer_email": email,
+        "product_id": pid,
+        "quantity": quantity,
+        "total_price": total_price
+    }
+    orders.append(order)
+    consumers[email]["orders"].append(order)
+    print(f"Order placed! Total price: {total_price}")
+
+def view_consumer_orders():
+    print("\n--- Your Orders ---")
+    email = input("Enter your registered email: ").strip()
+    if email not in consumers:
+        print("Consumer not found.")
+        return
+    if not consumers[email]["orders"]:
+        print("No orders yet.")
+        return
+    for idx, order in enumerate(consumers[email]["orders"], start=1):
+        prod = products[order["product_id"]]
+        farmer_name = farmers[prod["farmer_email"]]["name"]
+        print(f"{idx}. Product: {prod['name']} | Qty: {order['quantity']} kg | Total: {order['total_price']} | Farmer: {farmer_name}")
+
+# ------------------- Main Menu -------------------
+def main_menu():
+    while True:
+        print("\n===== Farmer to Consumer System =====")
+        print("1. Register Farmer")
+        print("2. Add Product (Farmer)")
+        print("3. View Farmer Products")
+        print("4. Register Consumer")
+        print("5. Browse Products (Consumer)")
+        print("6. Place Order (Consumer)")
+        print("7. View Consumer Orders")
+        print("8. Exit")
+        
+        choice = input("Enter choice (1-8): ").strip()
+        if choice == '1':
+            register_farmer()
+        elif choice == '2':
+            add_product()
+        elif choice == '3':
+            view_farmer_products()
+        elif choice == '4':
+            register_consumer()
+        elif choice == '5':
+            browse_products()
+        elif choice == '6':
+            place_order()
+        elif choice == '7':
+            view_consumer_orders()
+        elif choice == '8':
+            print("Exiting system. Goodbye!")
+            break
+        else:
+            print("Invalid choice! Please enter 1-8.")
+
+# ------------------- Run Program -------------------
+if __name__ == "__main__":
+    main_menu()
